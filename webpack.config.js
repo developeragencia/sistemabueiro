@@ -1,51 +1,37 @@
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-  entry: {
-    main: './dashboard/admin/js/main.js',
-    facebook: './dashboard/admin/js/FacebookAPI.js',
-    adsets: './dashboard/admin/js/AdSetsManager.js'
-  },
+  entry: './src/js/index.js',
   output: {
-    filename: 'js/[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
-    clean: true,
+    filename: 'bundle.[contenthash].js',
     publicPath: '/'
-  },
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          format: {
-            comments: false,
-          },
-          compress: {
-            drop_console: true,
-          },
-        },
-        extractComments: false,
-      }),
-    ],
-    splitChunks: {
-      chunks: 'all',
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-        },
-      },
-    },
   },
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-transform-runtime']
+          }
+        }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
+        ]
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -64,23 +50,9 @@ module.exports = {
     ]
   },
   plugins: [
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: 'dashboard/admin',
-          to: '.',
-          globOptions: {
-            ignore: [
-              '**/js/**',
-              '**/*.scss',
-              '**/node_modules/**'
-            ]
-          }
-        }
-      ]
-    }),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: 'dashboard/admin/index.html',
+      template: './src/index.html',
       filename: 'index.html',
       minify: {
         collapseWhitespace: true,
@@ -90,9 +62,32 @@ module.exports = {
         removeStyleLinkTypeAttributes: true,
         useShortDoctype: true
       }
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'styles.[contenthash].css'
     })
   ],
-  performance: {
-    hints: false
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin(),
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true
+          }
+        }
+      })
+    ],
+    splitChunks: {
+      chunks: 'all'
+    }
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 9000,
+    historyApiFallback: true
   }
 }; 

@@ -1,0 +1,136 @@
+// Variáveis
+$primary-color: #1877f2;
+$secondary-color: #42b72a;
+$danger-color: #dc3545;
+$warning-color: #ffc107;
+$success-color: #28a745;
+$info-color: #17a2b8;
+$light-color: #f8f9fa;
+$dark-color: #343a40;
+
+// Mixins
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin card-shadow {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Estilos base
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: $light-color;
+    color: $dark-color;
+}
+
+// Container principal
+#app {
+    min-height: 100vh;
+    padding: 20px;
+}
+
+// Cards
+.card {
+    @include card-shadow;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    
+    .card-header {
+        background-color: white;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 15px 20px;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+}
+
+// Botões
+.btn {
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: 500;
+    
+    &-primary {
+        background-color: $primary-color;
+        border-color: $primary-color;
+        
+        &:hover {
+            background-color: darken($primary-color, 10%);
+            border-color: darken($primary-color, 10%);
+        }
+    }
+    
+    &-success {
+        background-color: $success-color;
+        border-color: $success-color;
+        
+        &:hover {
+            background-color: darken($success-color, 10%);
+            border-color: darken($success-color, 10%);
+        }
+    }
+}
+
+// Formulários
+.form-control {
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 8px 12px;
+    
+    &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+    }
+}
+
+// Tabelas
+.table {
+    thead th {
+        border-top: none;
+        font-weight: 600;
+        color: $dark-color;
+    }
+    
+    tbody tr {
+        &:hover {
+            background-color: rgba($primary-color, 0.05);
+        }
+    }
+}
+
+// Badges
+.badge {
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+    
+    &-success {
+        background-color: $success-color;
+    }
+    
+    &-warning {
+        background-color: $warning-color;
+        color: $dark-color;
+    }
+    
+    &-danger {
+        background-color: $danger-color;
+    }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 15px;
+    }
+    
+    .table-responsive {
+        margin-bottom: 15px;
+    }
+} 

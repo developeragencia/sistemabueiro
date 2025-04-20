@@ -1,18 +1,18 @@
-# BM Multi Acessos - Dashboard de Anúncios Facebook
+# Bueiro2029 - Dashboard Administrativo
 
-Dashboard para gerenciamento de anúncios e contas do Facebook Ads.
+Dashboard administrativo para gerenciamento de anúncios e contas do Facebook.
 
 ## Requisitos
 
-- Node.js 18 ou superior
-- npm ou yarn
+- Node.js >= 18.0.0
+- npm >= 8.0.0
 
 ## Instalação
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/bm-multi-acessos.git
-cd bm-multi-acessos
+git clone https://github.com/seu-usuario/bueiro2029.git
+cd bueiro2029
 ```
 
 2. Instale as dependências:
@@ -20,67 +20,53 @@ cd bm-multi-acessos
 npm install
 ```
 
-## Desenvolvimento
-
-Para iniciar o ambiente de desenvolvimento:
-
+3. Inicie o servidor de desenvolvimento:
 ```bash
-npm run dev
+npm start
 ```
 
-Isso irá:
-- Compilar os arquivos SCSS em tempo real
-- Compilar os arquivos JavaScript com webpack em modo watch
-
-## Build para Produção
-
-Para criar uma build de produção:
-
+4. Para build de produção:
 ```bash
 npm run build
 ```
 
-Isso irá:
-- Compilar e minificar os arquivos SCSS
-- Compilar e otimizar os arquivos JavaScript
-
-## Deploy no Netlify
-
-O projeto está configurado para deploy automático no Netlify. Basta conectar seu repositório ao Netlify e o deploy será feito automaticamente quando houver push para a branch principal.
-
 ## Estrutura do Projeto
 
 ```
-dashboard/
-├── admin/
-│   ├── css/
-│   │   ├── style.scss
-│   │   ├── style.css
-│   │   └── adsets.css
-│   ├── js/
-│   │   ├── main.js
-│   │   ├── FacebookAPI.js
-│   │   └── AdSetsManager.js
-│   └── index.html
-└── dist/
-    └── js/
-        ├── main.bundle.js
-        ├── facebook.bundle.js
-        └── adsets.bundle.js
+bueiro2029/
+├── src/                  # Código fonte
+│   ├── js/              # Arquivos JavaScript
+│   ├── css/             # Arquivos CSS/SCSS
+│   └── index.html       # Página principal
+├── dist/                # Arquivos compilados (gerado)
+├── node_modules/        # Dependências (gerado)
+├── package.json         # Configuração do projeto
+├── webpack.config.js    # Configuração do Webpack
+└── netlify.toml         # Configuração do Netlify
 ```
 
 ## Tecnologias Utilizadas
 
 - HTML5
-- CSS3 (SCSS)
+- CSS3/SCSS
 - JavaScript (ES6+)
 - Bootstrap 5
-- Chart.js
 - jQuery
-- Select2
-- SweetAlert2
+- Chart.js
 - Webpack
-- SASS
+- Babel
+
+## Deploy
+
+O projeto está configurado para deploy automático no Netlify. Qualquer push para a branch main irá disparar um novo deploy.
+
+## Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
 
 ## Licença
 
