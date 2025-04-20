@@ -1,5 +1,5 @@
 [build]
-  command = "npm install && npm run build"
+  command = "npm install && npm install -g webpack webpack-cli && npm run build"
   publish = "dist"
   base = "."
 
