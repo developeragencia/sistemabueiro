@@ -5,7 +5,7 @@
   "scripts": {
     "build": "NODE_ENV=development npm install && npm run build:all",
     "build:all": "npm run build:css && npm run build:js && npm run build:copy",
-    "build:css": "node-sass dashboard/admin/css/style.scss dist/css/style.css --output-style compressed && node-sass dashboard/admin/css/adsets.css dist/css/adsets.css --output-style compressed",
+    "build:css": "mkdir -p dist/css && node-sass dashboard/admin/css/style.scss > dist/css/style.css --output-style compressed && node-sass dashboard/admin/css/adsets.css > dist/css/adsets.css --output-style compressed",
     "build:js": "webpack --mode production",
     "build:copy": "copyfiles -u 1 \"dashboard/admin/**/*.{html,css,js,png,jpg,svg}\" dist/",
     "dev": "npm run dev:css && npm run dev:js",
