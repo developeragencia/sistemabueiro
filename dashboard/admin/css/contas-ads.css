@@ -1,0 +1,238 @@
+/* Estilos específicos para página de Contas de Anúncio */
+
+/* Variáveis específicas */
+:root {
+    --spend-high: #ff4d4f;
+    --spend-medium: #faad14;
+    --spend-low: #52c41a;
+    --status-active: #52c41a;
+    --status-disabled: #ff4d4f;
+    --status-pending: #faad14;
+    --status-unsettled: #1890ff;
+}
+
+/* Customização dos cards de estatísticas */
+.bm-stats-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.bm-stats-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary-color);
+    opacity: 0.5;
+}
+
+.stat-value {
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* Status badges */
+.account-status {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.account-status::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-ACTIVE {
+    background: rgba(82, 196, 26, 0.1);
+    color: var(--status-active);
+}
+
+.status-ACTIVE::before {
+    background: var(--status-active);
+}
+
+.status-DISABLED {
+    background: rgba(255, 77, 79, 0.1);
+    color: var(--status-disabled);
+}
+
+.status-DISABLED::before {
+    background: var(--status-disabled);
+}
+
+.status-PENDING_REVIEW {
+    background: rgba(250, 173, 20, 0.1);
+    color: var(--status-pending);
+}
+
+.status-PENDING_REVIEW::before {
+    background: var(--status-pending);
+}
+
+.status-UNSETTLED {
+    background: rgba(24, 144, 255, 0.1);
+    color: var(--status-unsettled);
+}
+
+.status-UNSETTLED::before {
+    background: var(--status-unsettled);
+}
+
+/* Indicadores de gasto */
+.spend-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.spend-bar {
+    width: 60px;
+    height: 4px;
+    background: #f0f0f0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.spend-bar-fill {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.spend-high .spend-bar-fill {
+    background: var(--spend-high);
+    width: 90%;
+}
+
+.spend-medium .spend-bar-fill {
+    background: var(--spend-medium);
+    width: 60%;
+}
+
+.spend-low .spend-bar-fill {
+    background: var(--spend-low);
+    width: 30%;
+}
+
+/* Modal de detalhes */
+.modal-lg {
+    max-width: 800px !important;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.details-section {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.details-section h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+/* Métricas de gastos */
+.metric-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.metric-label {
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.metric-value {
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 500;
+}
+
+/* Histórico de alterações */
+.history-item {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.history-date {
+    font-size: 12px;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.history-action {
+    margin: 4px 0;
+    font-weight: 500;
+}
+
+.history-user {
+    font-size: 12px;
+    color: var(--primary-color);
+}
+
+/* Lista de usuários */
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    background: white;
+    border-radius: 4px;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-name {
+    font-weight: 500;
+}
+
+.user-role {
+    font-size: 12px;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .spend-indicator {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .spend-bar {
+        width: 100%;
+    }
+} 

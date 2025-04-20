@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gerenciamento de Usuários - BM Multi Acessos">
+    <meta name="theme-color" content="#2196f3">
+    <title>Gerenciamento de Usuários - BM Multi Acessos</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/sweetalert2.min.css">
+    <link rel="stylesheet" href="css/select2.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/users.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar"></div>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="content-header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h1 class="h3 mb-0">Gerenciamento de Usuários</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Usuários</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo -->
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                <!-- Métricas -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-icon bg-primary">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="metric-info">
+                                <h6>Total de Usuários</h6>
+                                <h3 id="total-users">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-icon bg-success">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="metric-info">
+                                <h6>Usuários Ativos</h6>
+                                <h3 id="active-users">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-icon bg-warning">
+                                <i class="fas fa-user-clock"></i>
+                            </div>
+                            <div class="metric-info">
+                                <h6>Usuários Pendentes</h6>
+                                <h3 id="pending-users">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-icon bg-danger">
+                                <i class="fas fa-user-slash"></i>
+                            </div>
+                            <div class="metric-info">
+                                <h6>Usuários Bloqueados</h6>
+                                <h3 id="blocked-users">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtros e Ações -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <div class="d-flex gap-3">
+                                    <div class="form-group">
+                                        <label for="role-filter">Função</label>
+                                        <select id="role-filter" class="form-select">
+                                            <option value="all">Todas</option>
+                                            <option value="admin">Administrador</option>
+                                            <option value="manager">Gerente</option>
+                                            <option value="user">Usuário</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status-filter">Status</label>
+                                        <select id="status-filter" class="form-select">
+                                            <option value="all">Todos</option>
+                                            <option value="active">Ativo</option>
+                                            <option value="pending">Pendente</option>
+                                            <option value="blocked">Bloqueado</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group flex-grow-1">
+                                        <label for="search-input">Buscar</label>
+                                        <input type="text" id="search-input" class="form-control" placeholder="Buscar por nome, email...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <button id="create-user-btn" class="btn btn-primary">
+                                    <i class="fas fa-plus me-2"></i>Novo Usuário
+                                </button>
+                                <button id="export-users-btn" class="btn btn-outline-secondary">
+                                    <i class="fas fa-file-export me-2"></i>Exportar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabela de Usuários -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="users-table" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Usuário</th>
+                                        <th>Função</th>
+                                        <th>Status</th>
+                                        <th>Último Acesso</th>
+                                        <th>Data de Criação</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Criar Usuário -->
+    <div class="modal fade" id="create-user-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Novo Usuário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="create-user-form">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="create-name" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="create-name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="create-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="create-email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="create-role-select" class="form-label">Função</label>
+                            <select class="form-select" id="create-role-select" name="role" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="create-password" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="create-password" name="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="create-confirm-password" class="form-label">Confirmar Senha</label>
+                            <input type="password" class="form-control" id="create-confirm-password" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Criar Usuário</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Editar Usuário -->
+    <div class="modal fade" id="edit-user-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Usuário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="edit-user-form">
+                    <div class="modal-body">
+                        <input type="hidden" id="edit-user-id" name="id">
+                        <div class="text-center mb-4">
+                            <div class="avatar-wrapper">
+                                <img id="avatar-preview" src="img/default-avatar.png" alt="Avatar" class="rounded-circle">
+                                <label for="avatar-input" class="avatar-edit">
+                                    <i class="fas fa-camera"></i>
+                                </label>
+                                <input type="file" id="avatar-input" accept="image/*" hidden>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-name" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="edit-name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="edit-email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-role-select" class="form-label">Função</label>
+                            <select class="form-select" id="edit-role-select" name="role" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-status" class="form-label">Status</label>
+                            <select class="form-select" id="edit-status" name="status" required>
+                                <option value="active">Ativo</option>
+                                <option value="pending">Pendente</option>
+                                <option value="blocked">Bloqueado</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-password" class="form-label">Nova Senha (opcional)</label>
+                            <input type="password" class="form-control" id="edit-password" name="password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-confirm-password" class="form-label">Confirmar Nova Senha</label>
+                            <input type="password" class="form-control" id="edit-confirm-password">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Excluir Usuário -->
+    <div class="modal fade" id="delete-user-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Excluir Usuário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="delete-user-form">
+                    <div class="modal-body">
+                        <input type="hidden" id="delete-user-id" name="id">
+                        <p>Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Permissões -->
+    <div class="modal fade" id="permissions-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Gerenciar Permissões</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="permissions-form">
+                    <div class="modal-body">
+                        <input type="hidden" id="permissions-user-id" name="user_id">
+                        <div id="permissions-container"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Permissões</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay de Carregamento -->
+    <div id="loading-overlay">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/sweetalert2.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/FacebookAPI.js"></script>
+    <script src="js/UsersManager.js"></script>
+</body>
+</html>

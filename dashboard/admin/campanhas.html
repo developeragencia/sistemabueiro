@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gerenciamento de Campanhas - BM Multi Acessos Facebook">
+    <meta name="theme-color" content="#1877f2">
+    <title>Campanhas - BM Multi Acessos Facebook</title>
+    <link rel="stylesheet" href="css/bm-facebook.css">
+    <link rel="stylesheet" href="css/campanhas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://graph.facebook.com">
+</head>
+<body>
+    <!-- Menu Lateral -->
+    <nav class="bm-sidebar">
+        <!-- Conteúdo do menu lateral será carregado via JavaScript -->
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="bm-main">
+        <div class="container">
+            <!-- Cabeçalho com estatísticas -->
+            <div class="stats-container">
+                <div class="stats-card">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3>Total de Campanhas</h3>
+                    <p id="total-campaigns">0</p>
+                </div>
+                <div class="stats-card">
+                    <i class="fas fa-play-circle"></i>
+                    <h3>Campanhas Ativas</h3>
+                    <p id="active-campaigns">0</p>
+                </div>
+                <div class="stats-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Performance Média</h3>
+                    <p id="avg-performance">0%</p>
+                </div>
+                <div class="stats-card">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h3>Gasto Total</h3>
+                    <p id="total-spend">R$ 0,00</p>
+                </div>
+            </div>
+
+            <!-- Filtros e ações -->
+            <div class="filters-container">
+                <div class="filters">
+                    <select id="account-filter">
+                        <option value="">Conta de Anúncio</option>
+                        <!-- Opções serão preenchidas via JavaScript -->
+                    </select>
+                    <select id="status-filter">
+                        <option value="">Status</option>
+                        <option value="ACTIVE">Ativa</option>
+                        <option value="PAUSED">Pausada</option>
+                        <option value="DELETED">Excluída</option>
+                        <option value="ARCHIVED">Arquivada</option>
+                    </select>
+                    <select id="objective-filter">
+                        <option value="">Objetivo</option>
+                        <option value="AWARENESS">Reconhecimento</option>
+                        <option value="TRAFFIC">Tráfego</option>
+                        <option value="ENGAGEMENT">Engajamento</option>
+                        <option value="CONVERSIONS">Conversões</option>
+                        <option value="SALES">Vendas</option>
+                    </select>
+                    <input type="text" id="search-input" placeholder="Buscar campanha...">
+                </div>
+                <div class="actions">
+                    <button id="add-campaign" class="btn-primary">
+                        <i class="fas fa-plus"></i> Nova Campanha
+                    </button>
+                    <button id="export-campaigns" class="btn-secondary">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabela de campanhas -->
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome da Campanha</th>
+                            <th>Conta</th>
+                            <th>Status</th>
+                            <th>Objetivo</th>
+                            <th>Gasto</th>
+                            <th>Performance</th>
+                            <th>Início</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="campaigns-table-body">
+                        <!-- Conteúdo dinâmico será inserido aqui -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal de detalhes da campanha -->
+            <div id="campaign-details-modal" class="modal">
+                <div class="modal-content modal-lg">
+                    <span class="close">&times;</span>
+                    <h2>Detalhes da Campanha</h2>
+                    <div class="modal-body">
+                        <div class="details-grid">
+                            <div class="details-section">
+                                <h3>Informações Básicas</h3>
+                                <p><strong>Nome:</strong> <span id="detail-name"></span></p>
+                                <p><strong>ID:</strong> <span id="detail-campaign-id"></span></p>
+                                <p><strong>Status:</strong> <span id="detail-status"></span></p>
+                                <p><strong>Objetivo:</strong> <span id="detail-objective"></span></p>
+                                <p><strong>Conta:</strong> <span id="detail-account"></span></p>
+                                <p><strong>Data de Início:</strong> <span id="detail-start-date"></span></p>
+                                <p><strong>Data de Término:</strong> <span id="detail-end-date"></span></p>
+                            </div>
+                            <div class="details-section">
+                                <h3>Métricas</h3>
+                                <div class="metrics-grid">
+                                    <div class="metric-card">
+                                        <span class="metric-value" id="detail-spend">R$ 0,00</span>
+                                        <span class="metric-label">Gasto Total</span>
+                                    </div>
+                                    <div class="metric-card">
+                                        <span class="metric-value" id="detail-impressions">0</span>
+                                        <span class="metric-label">Impressões</span>
+                                    </div>
+                                    <div class="metric-card">
+                                        <span class="metric-value" id="detail-clicks">0</span>
+                                        <span class="metric-label">Cliques</span>
+                                    </div>
+                                    <div class="metric-card">
+                                        <span class="metric-value" id="detail-ctr">0%</span>
+                                        <span class="metric-label">CTR</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="details-section">
+                            <h3>Conjuntos de Anúncios</h3>
+                            <div id="detail-adsets-list" class="adsets-list">
+                                <!-- Lista de conjuntos será inserida aqui -->
+                            </div>
+                        </div>
+                        <div class="details-section">
+                            <h3>Gráfico de Performance</h3>
+                            <canvas id="performance-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal de edição de campanha -->
+            <div id="edit-campaign-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Editar Campanha</h2>
+                    <form id="edit-campaign-form">
+                        <div class="form-group">
+                            <label for="edit-name">Nome da Campanha</label>
+                            <input type="text" id="edit-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-account">Conta de Anúncio</label>
+                            <select id="edit-account" required>
+                                <!-- Opções serão preenchidas via JavaScript -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-objective">Objetivo</label>
+                            <select id="edit-objective" required>
+                                <option value="AWARENESS">Reconhecimento</option>
+                                <option value="TRAFFIC">Tráfego</option>
+                                <option value="ENGAGEMENT">Engajamento</option>
+                                <option value="CONVERSIONS">Conversões</option>
+                                <option value="SALES">Vendas</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-status">Status</label>
+                            <select id="edit-status" required>
+                                <option value="ACTIVE">Ativa</option>
+                                <option value="PAUSED">Pausada</option>
+                                <option value="ARCHIVED">Arquivada</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-start-date">Data de Início</label>
+                            <input type="datetime-local" id="edit-start-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-end-date">Data de Término</label>
+                            <input type="datetime-local" id="edit-end-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-budget">Orçamento Diário</label>
+                            <input type="number" id="edit-budget" min="1" step="0.01" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Salvar</button>
+                            <button type="button" class="btn-secondary" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal de confirmação de exclusão -->
+            <div id="delete-confirm-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Confirmar Exclusão</h2>
+                    <p>Tem certeza que deseja excluir esta campanha? Esta ação não pode ser desfeita.</p>
+                    <div class="modal-actions">
+                        <button id="confirm-delete" class="btn-danger">Excluir</button>
+                        <button class="btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mensagens de alerta -->
+            <div id="alert-container"></div>
+
+            <!-- Indicador de carregamento -->
+            <div id="loading-spinner" class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="js/bm-facebook-api.js"></script>
+    <script type="module" src="js/bm-sidebar.js"></script>
+    <script type="module" src="js/campanhas.js"></script>
+</body>
+</html> 

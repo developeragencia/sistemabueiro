@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Visão Geral - BM Multi Acessos Facebook">
+    <meta name="theme-color" content="#1877f2">
+    <title>Visão Geral - BM Multi Acessos Facebook</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <link rel="stylesheet" href="css/sweetalert2.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/overview.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar"></div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Cabeçalho -->
+            <div class="page-header">
+                <div class="header-content">
+                    <h1>Visão Geral</h1>
+                    <p>Acompanhe o desempenho geral das suas campanhas</p>
+                </div>
+                <div class="header-actions">
+                    <button id="configure-alerts" class="btn btn-outline-primary">
+                        <i class="fas fa-bell"></i> Configurar Alertas
+                    </button>
+                    <button id="export-data" class="btn btn-outline-secondary">
+                        <i class="fas fa-download"></i> Exportar Dados
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filtros -->
+            <div class="filters-section">
+                <div class="filter-group">
+                    <select id="date-range-filter" class="form-select">
+                        <option value="today">Hoje</option>
+                        <option value="yesterday">Ontem</option>
+                        <option value="last7days">Últimos 7 dias</option>
+                        <option value="last30days" selected>Últimos 30 dias</option>
+                        <option value="thisMonth">Este mês</option>
+                        <option value="lastMonth">Mês passado</option>
+                        <option value="custom">Personalizado</option>
+                    </select>
+                    <select id="account-filter" class="form-select">
+                        <option value="all">Todas as Contas</option>
+                    </select>
+                </div>
+                <div id="custom-date-range" class="date-range-picker" style="display: none;">
+                    <input type="date" id="start-date" class="form-control">
+                    <input type="date" id="end-date" class="form-control">
+                </div>
+            </div>
+
+            <!-- Cards de Métricas -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="metric-info">
+                        <h3>Total Gasto</h3>
+                        <span id="total-spend">R$ 0,00</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="metric-info">
+                        <h3>ROI</h3>
+                        <span id="roi">0%</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-mouse-pointer"></i>
+                    </div>
+                    <div class="metric-info">
+                        <h3>CTR Médio</h3>
+                        <span id="ctr">0%</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="metric-info">
+                        <h3>Conversões</h3>
+                        <span id="conversions">0</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-hand-pointer"></i>
+                    </div>
+                    <div class="metric-info">
+                        <h3>CPC Médio</h3>
+                        <span id="cpc">R$ 0,00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráficos -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Gastos ao Longo do Tempo</h3>
+                        <div class="chart-actions">
+                            <button class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="spend-chart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Performance</h3>
+                        <div class="chart-actions">
+                            <button class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="performance-chart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Distribuição de Gastos</h3>
+                        <div class="chart-actions">
+                            <button class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="distribution-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alertas e Atividades -->
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <h3>Alertas</h3>
+                        <span class="badge bg-danger">3 novos</span>
+                    </div>
+                    <div id="alerts-container" class="info-body"></div>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <h3>Atividades Recentes</h3>
+                        <button class="btn btn-sm btn-link">Ver Todas</button>
+                    </div>
+                    <div id="activities-container" class="info-body"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Configuração de Alertas -->
+    <div class="modal fade" id="alerts-config-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Configurar Alertas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="alerts-config-form">
+                        <div class="mb-3">
+                            <label class="form-label">Limite de Gastos Diários</label>
+                            <div class="input-group">
+                                <span class="input-group-text">R$</span>
+                                <input type="number" class="form-control" name="spend_limit">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Alertas de Performance</label>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="alert_low_ctr">
+                                <label class="form-check-label">CTR abaixo do esperado</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="alert_high_cpc">
+                                <label class="form-check-label">CPC acima do limite</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="alert_no_conversions">
+                                <label class="form-check-label">Sem conversões</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Notificações</label>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="notify_email">
+                                <label class="form-check-label">Email</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="notify_push">
+                                <label class="form-check-label">Notificação Push</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="notify_slack">
+                                <label class="form-check-label">Slack</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="save-alerts-config">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/chart.min.js"></script>
+    <script src="js/sweetalert2.min.js"></script>
+    <script src="js/exceljs.min.js"></script>
+    <script src="js/facebook-api.js"></script>
+    <script src="js/OverviewManager.js"></script>
+</body>
+</html>

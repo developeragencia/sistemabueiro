@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gerenciamento de Conjuntos de Anúncios - BM Multi Acessos Facebook">
+    <meta name="theme-color" content="#1877f2">
+    <title>Conjuntos de Anúncios - BM Multi Acessos Facebook</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <link rel="stylesheet" href="css/sweetalert2.min.css">
+    <link rel="stylesheet" href="css/select2.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/conjuntos-anuncios.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://graph.facebook.com">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar"></div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Cabeçalho -->
+            <div class="page-header">
+                <h1>Conjuntos de Anúncios</h1>
+                <p>Gerencie seus conjuntos de anúncios e acompanhe seu desempenho</p>
+            </div>
+
+            <!-- Métricas -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div class="metric-info">
+                        <h3>Total de Conjuntos</h3>
+                        <span id="total-adsets">0</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="metric-info">
+                        <h3>Conjuntos Ativos</h3>
+                        <span id="active-adsets">0</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="metric-info">
+                        <h3>Alcance Total</h3>
+                        <span id="total-reach">0</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="metric-info">
+                        <h3>Gastos Totais</h3>
+                        <span id="total-spend">R$ 0,00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtros e Ações -->
+            <div class="filters-actions">
+                <div class="filters">
+                    <select id="campaign-filter" class="form-control">
+                        <option value="">Todas as Campanhas</option>
+                    </select>
+                    <select id="status-filter" class="form-control">
+                        <option value="">Todos os Status</option>
+                        <option value="ACTIVE">Ativo</option>
+                        <option value="PAUSED">Pausado</option>
+                        <option value="DELETED">Excluído</option>
+                    </select>
+                    <select id="audience-filter" class="form-control">
+                        <option value="">Todos os Tipos de Audiência</option>
+                        <option value="saved">Audiência Salva</option>
+                        <option value="custom">Audiência Personalizada</option>
+                        <option value="lookalike">Audiência Semelhante</option>
+                    </select>
+                    <div class="search-box">
+                        <input type="text" id="search-input" class="form-control" placeholder="Buscar conjuntos...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button id="create-adset-btn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Novo Conjunto
+                    </button>
+                    <button id="export-adsets-btn" class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabela de Conjuntos -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Campanha</th>
+                            <th>Status</th>
+                            <th>Audiência</th>
+                            <th>Alcance</th>
+                            <th>Gastos</th>
+                            <th>Performance</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adsets-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes -->
+    <div class="modal fade" id="details-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalhes do Conjunto</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="details-header">
+                        <h2 id="details-name"></h2>
+                        <div class="details-meta">
+                            <span>Campanha: <strong id="details-campaign"></strong></span>
+                            <span>Status: <span id="details-status"></span></span>
+                        </div>
+                    </div>
+                    
+                    <div class="details-grid">
+                        <div class="details-section">
+                            <h3>Audiência</h3>
+                            <div id="audience-details"></div>
+                        </div>
+                        <div class="details-section">
+                            <h3>Performance</h3>
+                            <canvas id="performance-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edição -->
+    <div class="modal fade" id="edit-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Conjunto</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="adset-form">
+                        <input type="hidden" name="id">
+                        
+                        <div class="form-group">
+                            <label>Nome do Conjunto</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Campanha</label>
+                                <select name="campaign" class="form-control" required></select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Status</label>
+                                <select name="status" class="form-control" required>
+                                    <option value="ACTIVE">Ativo</option>
+                                    <option value="PAUSED">Pausado</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h4>Configurações de Audiência</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Idade Mínima</label>
+                                <input type="number" name="age-min" class="form-control" min="13" max="65" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Idade Máxima</label>
+                                <input type="number" name="age-max" class="form-control" min="13" max="65" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Gênero</label>
+                            <select name="gender" class="form-control" required>
+                                <option value="all">Todos</option>
+                                <option value="male">Masculino</option>
+                                <option value="female">Feminino</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Localização</label>
+                            <select name="locations" class="form-control select2" multiple required></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Interesses</label>
+                            <select name="interests" class="form-control select2" multiple></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Comportamentos</label>
+                            <select name="behaviors" class="form-control select2" multiple></select>
+                        </div>
+
+                        <h4>Configurações de Orçamento</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Orçamento Diário</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">R$</span>
+                                    </div>
+                                    <input type="number" name="budget" class="form-control" min="1" step="0.01" required>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Estratégia de Lance</label>
+                                <select name="bid-strategy" class="form-control" required>
+                                    <option value="lowest_cost">Menor Custo</option>
+                                    <option value="target_cost">Custo Alvo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="save-adset-btn" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Exclusão -->
+    <div class="modal fade" id="delete-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Exclusão</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir este conjunto de anúncios?</p>
+                    <p class="text-danger">Esta ação não pode ser desfeita.</p>
+                    <input type="hidden" id="delete-adset-id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="confirm-delete-btn" class="btn btn-danger">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay de Loading -->
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/fontawesome.min.js"></script>
+    <script src="js/sweetalert2.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/chart.min.js"></script>
+    <script src="js/facebook-api.js"></script>
+    <script src="js/AdSetsManager.js"></script>
+</body>
+</html> 

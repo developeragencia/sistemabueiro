@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gerenciamento de Conjuntos de Anúncios - BM Multi Acessos">
+    <meta name="theme-color" content="#2196f3">
+    <title>Gerenciamento de Conjuntos de Anúncios - BM Multi Acessos</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/sweetalert2.min.css">
+    <link rel="stylesheet" href="css/daterangepicker.css">
+    <link rel="stylesheet" href="css/select2.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/adsets.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar"></div>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="content-header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h1 class="h3 mb-0">Gerenciamento de Conjuntos de Anúncios</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Conjuntos de Anúncios</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo -->
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                <!-- Métricas -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-icon bg-primary">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <div class="metric-info">
+                                <h6>Total de Conjuntos</h6>
+                                <h3 id="total-adsets">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-icon bg-success">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <div class="metric-info">
+                                <h6>Conjuntos Ativos</h6>
+                                <h3 id="active-adsets">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-icon bg-warning">
+                                <i class="fas fa-pause-circle"></i>
+                            </div>
+                            <div class="metric-info">
+                                <h6>Conjuntos Pausados</h6>
+                                <h3 id="paused-adsets">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-icon bg-info">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="metric-info">
+                                <h6>Alcance Total</h6>
+                                <h3 id="total-reach">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtros e Ações -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row align-items-end">
+                            <div class="col-md-8">
+                                <div class="d-flex gap-3">
+                                    <div class="form-group">
+                                        <label for="campaign-filter">Campanha</label>
+                                        <select id="campaign-filter" class="form-select">
+                                            <option value="all">Todas as Campanhas</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status-filter">Status</label>
+                                        <select id="status-filter" class="form-select">
+                                            <option value="all">Todos</option>
+                                            <option value="active">Ativo</option>
+                                            <option value="paused">Pausado</option>
+                                            <option value="deleted">Excluído</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="date-range">Período</label>
+                                        <input type="text" id="date-range" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group flex-grow-1">
+                                        <label for="search-input">Buscar</label>
+                                        <input type="text" id="search-input" class="form-control" placeholder="Buscar conjuntos...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <button id="create-adset-btn" class="btn btn-primary">
+                                    <i class="fas fa-plus me-2"></i>Novo Conjunto
+                                </button>
+                                <button id="export-adsets-btn" class="btn btn-outline-secondary">
+                                    <i class="fas fa-file-export me-2"></i>Exportar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabela de Conjuntos -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="adsets-table" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Conjunto de Anúncios</th>
+                                        <th>Campanha</th>
+                                        <th>Status</th>
+                                        <th>Orçamento</th>
+                                        <th>Gasto</th>
+                                        <th>Alcance</th>
+                                        <th>Frequência</th>
+                                        <th>CPC</th>
+                                        <th>CPM</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Criar Conjunto -->
+    <div class="modal fade" id="create-adset-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Novo Conjunto de Anúncios</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="create-adset-form">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="adset-name" class="form-label">Nome do Conjunto</label>
+                                    <input type="text" class="form-control" id="adset-name" name="name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="adset-campaign" class="form-label">Campanha</label>
+                                    <select class="form-select" id="adset-campaign" name="campaign" required>
+                                        <option value="">Selecione uma campanha</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="adset-budget-type" class="form-label">Tipo de Orçamento</label>
+                                    <select class="form-select" id="adset-budget-type" name="budgetType" required>
+                                        <option value="daily">Diário</option>
+                                        <option value="lifetime">Vitalício</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="adset-budget" class="form-label">Orçamento</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">R$</span>
+                                        <input type="number" class="form-control" id="adset-budget" name="budget" min="1" step="0.01" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="adset-start-date" class="form-label">Data de Início</label>
+                                    <input type="date" class="form-control" id="adset-start-date" name="startDate" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="adset-end-date" class="form-label">Data de Término (opcional)</label>
+                                    <input type="date" class="form-control" id="adset-end-date" name="endDate">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="adset-optimization" class="form-label">Otimização</label>
+                                    <select class="form-select" id="adset-optimization" name="optimization" required>
+                                        <option value="reach">Alcance</option>
+                                        <option value="impressions">Impressões</option>
+                                        <option value="link_clicks">Cliques</option>
+                                        <option value="conversions">Conversões</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="adset-status" class="form-label">Status Inicial</label>
+                                    <select class="form-select" id="adset-status" name="status" required>
+                                        <option value="active">Ativo</option>
+                                        <option value="paused">Pausado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="mb-3">Segmentação</h6>
+                                <div class="mb-3">
+                                    <label for="adset-locations" class="form-label">Localizações</label>
+                                    <select class="form-select" id="adset-locations" name="locations[]" multiple required>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="adset-age-min" class="form-label">Idade Mínima</label>
+                                            <input type="number" class="form-control" id="adset-age-min" name="ageMin" min="13" max="65" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="adset-age-max" class="form-label">Idade Máxima</label>
+                                            <input type="number" class="form-control" id="adset-age-max" name="ageMax" min="13" max="65" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="adset-genders" class="form-label">Gênero</label>
+                                    <select class="form-select" id="adset-genders" name="genders[]" multiple required>
+                                        <option value="1">Masculino</option>
+                                        <option value="2">Feminino</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="adset-interests" class="form-label">Interesses</label>
+                                    <select class="form-select" id="adset-interests" name="interests[]" multiple>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Criar Conjunto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Editar Conjunto -->
+    <div class="modal fade" id="edit-adset-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Conjunto de Anúncios</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="edit-adset-form">
+                    <div class="modal-body">
+                        <input type="hidden" id="edit-adset-id" name="id">
+                        <!-- Mesmos campos do formulário de criação -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="edit-name" class="form-label">Nome do Conjunto</label>
+                                    <input type="text" class="form-control" id="edit-name" name="name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-budget-type" class="form-label">Tipo de Orçamento</label>
+                                    <select class="form-select" id="edit-budget-type" name="budgetType" required>
+                                        <option value="daily">Diário</option>
+                                        <option value="lifetime">Vitalício</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-budget" class="form-label">Orçamento</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">R$</span>
+                                        <input type="number" class="form-control" id="edit-budget" name="budget" min="1" step="0.01" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="edit-optimization" class="form-label">Otimização</label>
+                                    <select class="form-select" id="edit-optimization" name="optimization" required>
+                                        <option value="reach">Alcance</option>
+                                        <option value="impressions">Impressões</option>
+                                        <option value="link_clicks">Cliques</option>
+                                        <option value="conversions">Conversões</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-status" class="form-label">Status</label>
+                                    <select class="form-select" id="edit-status" name="status" required>
+                                        <option value="active">Ativo</option>
+                                        <option value="paused">Pausado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="mb-3">Segmentação</h6>
+                                <div class="mb-3">
+                                    <label for="edit-locations" class="form-label">Localizações</label>
+                                    <select class="form-select" id="edit-locations" name="locations[]" multiple required>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="edit-age-min" class="form-label">Idade Mínima</label>
+                                            <input type="number" class="form-control" id="edit-age-min" name="ageMin" min="13" max="65" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="edit-age-max" class="form-label">Idade Máxima</label>
+                                            <input type="number" class="form-control" id="edit-age-max" name="ageMax" min="13" max="65" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-genders" class="form-label">Gênero</label>
+                                    <select class="form-select" id="edit-genders" name="genders[]" multiple required>
+                                        <option value="1">Masculino</option>
+                                        <option value="2">Feminino</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-interests" class="form-label">Interesses</label>
+                                    <select class="form-select" id="edit-interests" name="interests[]" multiple>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Excluir Conjunto -->
+    <div class="modal fade" id="delete-adset-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Excluir Conjunto de Anúncios</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="delete-adset-form">
+                    <div class="modal-body">
+                        <input type="hidden" id="delete-adset-id" name="id">
+                        <p>Tem certeza que deseja excluir este conjunto de anúncios? Esta ação não pode ser desfeita.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Insights do Conjunto -->
+    <div class="modal fade" id="insights-modal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Insights do Conjunto de Anúncios</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="chart-container">
+                                <canvas id="performance-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="chart-container">
+                                <canvas id="demographics-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="chart-container">
+                                <canvas id="timeline-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay de Carregamento -->
+    <div id="loading-overlay">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/daterangepicker.js"></script>
+    <script src="js/chart.min.js"></script>
+    <script src="js/sweetalert2.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/FacebookAPI.js"></script>
+    <script src="js/AdSetsManager.js"></script>
+</body>
+</html> 

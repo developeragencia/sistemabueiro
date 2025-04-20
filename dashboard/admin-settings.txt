@@ -1,0 +1,87 @@
+Configurações Avançadas do Sistema - Bueiro Digital
+
+Painel de configurações completo para administradores gerenciarem todos os aspectos do sistema.
+
+SEÇÕES PRINCIPAIS:
+
+1. Configurações Gerais
+   - Nome do site
+   - Descrição
+   - URL do site
+   - Logotipo e favicon
+   - Cores do tema
+   - Idiomas disponíveis
+
+2. Configurações de Conta
+   - Gerenciamento de registros
+   - Verificação de e-mail
+   - Políticas de senha
+   - Níveis de acesso
+   - Tempo de sessão
+   - Autenticação em duas etapas
+
+3. Limites e Restrições
+   - Limite de UTMs por usuário
+   - Limite de BMs por conta
+   - Limite de requisições API
+   - Tamanho máximo de arquivos
+   - Período de retenção de dados
+
+4. Integrações
+   - Facebook Business Manager
+   - Google Analytics
+   - Google Ads
+   - Meta Ads
+   - Webhooks personalizados
+   - APIs de terceiros
+
+5. Segurança
+   - Configurações de firewall
+   - Lista de IPs bloqueados
+   - Logs de segurança
+   - Políticas de backup
+   - Certificados SSL
+   - Proteção contra ataques
+
+6. E-mails
+   - Configurações SMTP
+   - Templates de e-mail
+   - Notificações automáticas
+   - Relatórios programados
+   - Lista de destinatários
+
+7. Pagamentos
+   - Gateways de pagamento
+   - Planos e preços
+   - Cupons de desconto
+   - Faturas automáticas
+   - Relatórios financeiros
+
+8. Sistema
+   - Versão do sistema
+   - Status dos serviços
+   - Logs do sistema
+   - Cache do sistema
+   - Tarefas agendadas
+   - Monitoramento de recursos
+
+AÇÕES DISPONÍVEIS:
+- Editar todas as configurações
+- Restaurar configurações padrão
+- Limpar cache do sistema
+- Gerar backups manuais
+- Visualizar logs detalhados
+- Gerenciar atualizações
+
+NÍVEIS DE ACESSO:
+- Super Admin: Acesso total
+- Admin: Acesso limitado
+- Gerente: Apenas visualização
+
+LOGS E MONITORAMENTO:
+- Logs de alterações
+- Logs de acesso
+- Logs de erros
+- Monitoramento de performance
+- Alertas do sistema
+- Relatórios de auditoria 

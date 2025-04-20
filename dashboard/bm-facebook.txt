@@ -1,0 +1,33 @@
+BM Multi Acessos Facebook - Bueiro Digital
+
+Página de gerenciamento de Business Managers e Multi Acessos do Facebook.
+
+Funcionalidades principais:
+- Visualização de estatísticas gerais
+- Adição de novos BMs
+- Solicitação de acessos
+- Verificação de status
+- Listagem de Business Managers
+- Gerenciamento de contas
+- Notificações de alterações
+
+Ações disponíveis:
+1. Adicionar novo BM
+2. Solicitar acesso
+3. Verificar status de BMs
+4. Gerenciar contas existentes
+5. Visualizar métricas
+6. Configurar notificações
+
+Status possíveis:
+- Ativo
+- Pendente
+- Bloqueado
+- Em análise
+- Expirado
+
+Integrações:
+- API do Facebook
+- Business Manager API
+- Sistema de notificações
+- Logs de atividades 

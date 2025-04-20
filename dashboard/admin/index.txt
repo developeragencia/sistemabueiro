@@ -1,0 +1,101 @@
+Dashboard Principal - Painel Administrativo
+
+VISÃO GERAL:
+O Dashboard Principal fornece uma visão completa e em tempo real das principais métricas e atividades do sistema.
+
+COMPONENTES:
+
+1. Cards de Estatísticas
+   - Usuários Ativos: Total de usuários ativos no sistema
+   - Receita Mensal: Faturamento total do mês atual
+   - UTMs Criadas: Número total de UTMs geradas
+   - BMs Ativos: Quantidade de Business Managers ativos
+
+2. Gráficos de Análise
+   - Crescimento de Usuários: Evolução mensal de novos usuários
+   - Receita vs Meta: Comparativo entre receita realizada e meta mensal
+
+3. Atividades Recentes
+   - Log de ações dos usuários
+   - Status de cada atividade
+   - Filtro por tipo de ação
+   - Ordenação por data
+
+FUNCIONALIDADES:
+
+1. Monitoramento em Tempo Real
+   - Atualização automática a cada 30 segundos
+   - Indicadores de tendência (crescimento/queda)
+   - Alertas de eventos importantes
+
+2. Interatividade
+   - Gráficos interativos com hover
+   - Filtros de período
+   - Exportação de dados
+   - Personalização de visualização
+
+3. Notificações
+   - Alertas do sistema
+   - Mensagens importantes
+   - Atualizações críticas
+
+4. Ações Rápidas
+   - Acesso aos principais recursos
+   - Atalhos personalizados
+   - Menu de navegação rápida
+
+INTEGRAÇÕES:
+
+1. Sistema de Usuários
+   - Contagem em tempo real
+   - Status de atividade
+   - Níveis de acesso
+
+2. Sistema Financeiro
+   - Processamento de pagamentos
+   - Controle de assinaturas
+   - Relatórios financeiros
+
+3. Gestão de UTMs
+   - Monitoramento de criação
+   - Análise de uso
+   - Estatísticas de cliques
+
+4. Business Managers
+   - Status de conexão
+   - Métricas de desempenho
+   - Alertas de problemas
+
+ATUALIZAÇÕES AUTOMÁTICAS:
+
+1. Dados Estatísticos
+   - Atualização a cada 30 segundos
+   - Cache inteligente
+   - Otimização de performance
+
+2. Gráficos
+   - Dados em tempo real
+   - Histórico mensal
+   - Previsões futuras
+
+3. Atividades
+   - Log em tempo real
+   - Histórico completo
+   - Filtros avançados
+
+SEGURANÇA:
+
+1. Acesso
+   - Autenticação obrigatória
+   - Registro de ações
+   - Timeout de sessão
+
+2. Dados
+   - Criptografia
+   - Backup automático
+   - Proteção contra ataques
+
+3. Auditoria
+   - Log de alterações
+   - Histórico de acessos
+   - Relatórios de segurança 

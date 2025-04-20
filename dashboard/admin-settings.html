@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charSet="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Configurações Avançadas - Bueiro Digital</title>
+    <meta name="description" content="Painel de configurações avançadas do sistema"/>
+    <link rel="stylesheet" href="/_next/static/css/caaf1483b27be7f6.css" data-precedence="next"/>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen">
+        <main class="p-4 md:p-6 lg:p-8">
+            <header class="mb-8">
+                <h1 class="text-2xl font-bold text-gray-900">Configurações do Sistema</h1>
+                <p class="text-gray-600">Gerencie todas as configurações do sistema</p>
+            </header>
+
+            <!-- Navegação das Configurações -->
+            <div class="mb-8">
+                <nav class="flex space-x-4">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg">Geral</button>
+                    <button class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">Aparência</button>
+                    <button class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">Integrações</button>
+                    <button class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">Segurança</button>
+                    <button class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">E-mails</button>
+                    <button class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">Pagamentos</button>
+                </nav>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Coluna Principal -->
+                <div class="lg:col-span-2 space-y-8">
+                    <!-- Configurações Gerais -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h2 class="text-xl font-semibold mb-6">Configurações Gerais</h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Informações do Site -->
+                            <div>
+                                <h3 class="text-lg font-medium mb-4">Informações do Site</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Nome do Site</label>
+                                        <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="Bueiro Digital"/>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Descrição</label>
+                                        <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" rows="3">A plataforma mais completa para rastreamento de UTMs e gestão de campanhas de marketing</textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">URL do Site</label>
+                                        <input type="url" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="https://bueiro.digital"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Configurações de Conta -->
+                            <div>
+                                <h3 class="text-lg font-medium mb-4">Configurações de Conta</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Registro de Usuários</label>
+                                            <p class="text-sm text-gray-500">Permitir que novos usuários se registrem</p>
+                                        </div>
+                                        <button class="bg-green-500 relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" role="switch" aria-checked="true">
+                                            <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+                                        </button>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Verificação de E-mail</label>
+                                            <p class="text-sm text-gray-500">Exigir verificação de e-mail para novos usuários</p>
+                                        </div>
+                                        <button class="bg-green-500 relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" role="switch" aria-checked="true">
+                                            <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Limites e Restrições -->
+                            <div>
+                                <h3 class="text-lg font-medium mb-4">Limites e Restrições</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Limite de UTMs por Usuário</label>
+                                        <input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="1000"/>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Limite de BMs por Conta</label>
+                                        <input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="5"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Configurações de API -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h2 class="text-xl font-semibold mb-6">Configurações de API</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Chave da API do Facebook</label>
+                                <input type="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="••••••••••••••••"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Chave da API do Google Analytics</label>
+                                <input type="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="••••••••••••••••"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna Lateral -->
+                <div class="space-y-8">
+                    <!-- Ações Rápidas -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h2 class="text-lg font-semibold mb-4">Ações Rápidas</h2>
+                        <div class="space-y-4">
+                            <button class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                                Salvar Alterações
+                            </button>
+                            <button class="w-full bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+                                Restaurar Padrões
+                            </button>
+                            <button class="w-full bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                                Limpar Cache
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Status do Sistema -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h2 class="text-lg font-semibold mb-4">Status do Sistema</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">Versão do Sistema</span>
+                                <span class="text-sm font-medium">2.0.0</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">Último Backup</span>
+                                <span class="text-sm font-medium">Hoje às 03:00</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">Status dos Serviços</span>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    Todos Ativos
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Logs do Sistema -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h2 class="text-lg font-semibold mb-4">Logs do Sistema</h2>
+                        <div class="space-y-2">
+                            <div class="text-sm text-gray-600">
+                                <span class="font-medium">Info:</span> Backup automático concluído
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <span class="font-medium">Info:</span> Atualização do sistema disponível
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <span class="font-medium">Aviso:</span> Alto uso de CPU detectado
+                            </div>
+                        </div>
+                        <button class="mt-4 text-sm text-blue-600 hover:text-blue-800">
+                            Ver todos os logs →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html> 

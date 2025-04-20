@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charSet="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Dashboard Administrativo - Bueiro Digital</title>
+    <meta name="description" content="Painel administrativo principal do sistema"/>
+    <link rel="stylesheet" href="/_next/static/css/caaf1483b27be7f6.css" data-precedence="next"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-800 text-white">
+            <div class="p-4">
+                <img src="/logo/bueiro-digital.png" alt="Bueiro Digital" class="h-8"/>
+            </div>
+            <nav class="mt-8">
+                <a href="/dashboard/admin" class="flex items-center px-4 py-3 bg-gray-900 text-white">
+                    <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="/dashboard/admin/bm-facebook" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700">
+                    <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                    BM Facebook
+                </a>
+                <!-- Outros itens do menu -->
+            </nav>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="flex-1 p-8">
+            <header class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">Dashboard Administrativo</h1>
+                    <p class="text-gray-600">Bem-vindo ao painel de controle</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="btnNotifications" class="p-2 text-gray-600 hover:text-gray-900">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                        </svg>
+                    </button>
+                    <div class="relative">
+                        <button id="btnProfile" class="flex items-center space-x-3">
+                            <img src="/images/avatar-admin.jpg" alt="Admin" class="h-8 w-8 rounded-full"/>
+                            <span class="text-gray-700">Administrador</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Cards de Estatísticas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-gray-500 text-sm">Usuários Ativos</h3>
+                        <span class="text-green-500">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <p class="text-3xl font-bold text-gray-900" id="activeUsers">0</p>
+                    <p class="text-sm text-gray-600">+12% desde o último mês</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-gray-500 text-sm">Receita Mensal</h3>
+                        <span class="text-green-500">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <p class="text-3xl font-bold text-gray-900" id="monthlyRevenue">R$ 0</p>
+                    <p class="text-sm text-gray-600">+8% desde o último mês</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-gray-500 text-sm">UTMs Criadas</h3>
+                        <span class="text-green-500">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <p class="text-3xl font-bold text-gray-900" id="totalUtms">0</p>
+                    <p class="text-sm text-gray-600">+25% desde o último mês</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-gray-500 text-sm">BMs Ativos</h3>
+                        <span class="text-green-500">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <p class="text-3xl font-bold text-gray-900" id="activeBms">0</p>
+                    <p class="text-sm text-gray-600">+15% desde o último mês</p>
+                </div>
+            </div>
+
+            <!-- Gráficos -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold mb-4">Crescimento de Usuários</h3>
+                    <canvas id="userGrowthChart" height="300"></canvas>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold mb-4">Receita vs Meta</h3>
+                    <canvas id="revenueChart" height="300"></canvas>
+                </div>
+            </div>
+
+            <!-- Atividades Recentes -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold mb-4">Atividades Recentes</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b">
+                                    <th class="text-left py-3 px-4">Usuário</th>
+                                    <th class="text-left py-3 px-4">Ação</th>
+                                    <th class="text-left py-3 px-4">Data</th>
+                                    <th class="text-left py-3 px-4">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentActivities">
+                                <!-- Atividades serão inseridas via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Função para atualizar os números dos cards
+        function updateDashboardStats() {
+            // Simulando dados dinâmicos
+            document.getElementById('activeUsers').textContent = Math.floor(Math.random() * 1000);
+            document.getElementById('monthlyRevenue').textContent = 'R$ ' + (Math.floor(Math.random() * 100000));
+            document.getElementById('totalUtms').textContent = Math.floor(Math.random() * 5000);
+            document.getElementById('activeBms').textContent = Math.floor(Math.random() * 200);
+        }
+
+        // Função para criar o gráfico de crescimento de usuários
+        function createUserGrowthChart() {
+            const ctx = document.getElementById('userGrowthChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                    datasets: [{
+                        label: 'Usuários',
+                        data: [100, 220, 350, 500, 650, 850],
+                        borderColor: 'rgb(59, 130, 246)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        // Função para criar o gráfico de receita
+        function createRevenueChart() {
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                    datasets: [{
+                        label: 'Receita',
+                        data: [30000, 45000, 60000, 75000, 90000, 120000],
+                        backgroundColor: 'rgba(59, 130, 246, 0.5)'
+                    }, {
+                        label: 'Meta',
+                        data: [40000, 50000, 65000, 80000, 95000, 110000],
+                        type: 'line',
+                        borderColor: 'rgb(34, 197, 94)',
+                        borderWidth: 2,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        // Função para adicionar atividades recentes
+        function addRecentActivities() {
+            const activities = [
+                { user: 'João Silva', action: 'Criou nova campanha', date: '2024-03-20 14:30', status: 'Concluído' },
+                { user: 'Maria Santos', action: 'Atualizou BM', date: '2024-03-20 14:25', status: 'Pendente' },
+                { user: 'Pedro Costa', action: 'Gerou relatório', date: '2024-03-20 14:20', status: 'Concluído' },
+                { user: 'Ana Oliveira', action: 'Adicionou integração', date: '2024-03-20 14:15', status: 'Em progresso' }
+            ];
+
+            const tbody = document.getElementById('recentActivities');
+            activities.forEach(activity => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b';
+                tr.innerHTML = `
+                    <td class="py-3 px-4">${activity.user}</td>
+                    <td class="py-3 px-4">${activity.action}</td>
+                    <td class="py-3 px-4">${activity.date}</td>
+                    <td class="py-3 px-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                            activity.status === 'Concluído' ? 'bg-green-100 text-green-800' :
+                            activity.status === 'Pendente' ? 'bg-yellow-100 text-yellow-800' :
+                            'bg-blue-100 text-blue-800'
+                        }">
+                            ${activity.status}
+                        </span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDashboardStats();
+            createUserGrowthChart();
+            createRevenueChart();
+            addRecentActivities();
+
+            // Atualizar estatísticas a cada 30 segundos
+            setInterval(updateDashboardStats, 30000);
+
+            // Handlers para botões
+            document.getElementById('btnNotifications').addEventListener('click', () => {
+                alert('Notificações em breve!');
+            });
+
+            document.getElementById('btnProfile').addEventListener('click', () => {
+                alert('Perfil em breve!');
+            });
+        });
+    </script>
+</body>
+</html> 

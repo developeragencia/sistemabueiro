@@ -1,0 +1,142 @@
+BM Multi Acessos Facebook - Documentação
+
+VISÃO GERAL:
+Interface de gerenciamento centralizado para Business Managers do Facebook, permitindo controle total sobre BMs, contas e permissões.
+
+COMPONENTES:
+
+1. Cabeçalho
+   - Título e descrição da página
+   - Botão de adicionar novo BM
+   - Botão de atualização de dados
+
+2. Filtros e Pesquisa
+   - Campo de busca por BM
+   - Filtro por status
+   - Filtros avançados (expansível)
+
+3. Cards Informativos
+   a) Visão Geral
+      - Total de BMs
+      - BMs Ativos
+      - BMs Pendentes
+      - BMs Bloqueados
+
+   b) Ações Rápidas
+      - Verificar Status
+      - Sincronizar Dados
+      - Gerar Relatório
+
+   c) Alertas Recentes
+      - Avisos importantes
+      - Erros de sincronização
+      - Atualizações do Facebook
+
+4. Tabela de Business Managers
+   - ID do BM
+   - Nome
+   - Status (Ativo/Pendente/Bloqueado)
+   - Número de Contas
+   - Último Acesso
+   - Ações (Visualizar/Editar/Excluir)
+
+FUNCIONALIDADES:
+
+1. Gestão de BMs
+   - Adicionar novo BM
+   - Editar informações
+   - Remover acesso
+   - Atualizar status
+   - Sincronizar dados
+
+2. Monitoramento
+   - Status em tempo real
+   - Alertas automáticos
+   - Logs de atividade
+   - Métricas de uso
+
+3. Integrações
+   - API do Facebook
+   - Sistema de usuários
+   - Sistema de notificações
+   - Logs do sistema
+
+4. Segurança
+   - Verificação de permissões
+   - Validação de tokens
+   - Registro de ações
+   - Backup de dados
+
+PROCESSOS AUTOMÁTICOS:
+
+1. Sincronização
+   - Atualização periódica de status
+   - Verificação de limites
+   - Validação de acessos
+   - Backup de configurações
+
+2. Alertas
+   - Monitoramento de limites
+   - Detecção de bloqueios
+   - Falhas de sincronização
+   - Atualizações do Facebook
+
+3. Relatórios
+   - Geração automática
+   - Envio programado
+   - Métricas personalizadas
+   - Histórico de alterações
+
+NÍVEIS DE ACESSO:
+
+1. Administrador
+   - Acesso total ao sistema
+   - Gerenciamento de usuários
+   - Configurações avançadas
+   - Relatórios completos
+
+2. Editor
+   - Gerenciamento de BMs
+   - Edição de informações
+   - Relatórios básicos
+   - Visualização de logs
+
+3. Analista
+   - Visualização de dados
+   - Geração de relatórios
+   - Monitoramento
+   - Alertas
+
+INTEGRAÇÕES COM API:
+
+1. Facebook Business API
+   - Autenticação OAuth
+   - Endpoints principais
+   - Limites de requisição
+   - Tratamento de erros
+
+2. Sistema Interno
+   - Sincronização de dados
+   - Cache de informações
+   - Logs de atividade
+   - Backup automático
+
+MANUTENÇÃO:
+
+1. Dados
+   - Limpeza periódica
+   - Otimização de cache
+   - Backup automático
+   - Recuperação de falhas
+
+2. Performance
+   - Monitoramento de recursos
+   - Otimização de consultas
+   - Cache inteligente
+   - Balanceamento de carga
+
+3. Segurança
+   - Atualizações de token
+   - Verificação de permissões
+   - Proteção contra ataques
+   - Auditoria de acessos 

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gerenciamento de Contas de Anúncio - BM Multi Acessos Facebook">
+    <meta name="theme-color" content="#1877f2">
+    <title>Contas de Anúncio - BM Multi Acessos Facebook</title>
+    <link rel="stylesheet" href="css/bm-facebook.css">
+    <link rel="stylesheet" href="css/contas-ads.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://graph.facebook.com">
+</head>
+<body>
+    <!-- Menu Lateral -->
+    <nav class="bm-sidebar">
+        <!-- Conteúdo do menu lateral será carregado via JavaScript -->
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="bm-main">
+        <div class="container">
+            <!-- Cabeçalho com estatísticas -->
+            <div class="stats-container">
+                <div class="stats-card">
+                    <i class="fas fa-ad"></i>
+                    <h3>Total de Contas</h3>
+                    <p id="total-accounts">0</p>
+                </div>
+                <div class="stats-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Contas Ativas</h3>
+                    <p id="active-accounts">0</p>
+                </div>
+                <div class="stats-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Contas Pendentes</h3>
+                    <p id="pending-accounts">0</p>
+                </div>
+                <div class="stats-card">
+                    <i class="fas fa-ban"></i>
+                    <h3>Contas Bloqueadas</h3>
+                    <p id="blocked-accounts">0</p>
+                </div>
+            </div>
+
+            <!-- Filtros e ações -->
+            <div class="filters-container">
+                <div class="filters">
+                    <select id="status-filter">
+                        <option value="">Status</option>
+                        <option value="active">Ativa</option>
+                        <option value="pending">Pendente</option>
+                        <option value="blocked">Bloqueada</option>
+                    </select>
+                    <select id="spend-filter">
+                        <option value="">Gasto</option>
+                        <option value="low">Baixo (< R$1000)</option>
+                        <option value="medium">Médio (R$1000 - R$5000)</option>
+                        <option value="high">Alto (> R$5000)</option>
+                    </select>
+                    <input type="text" id="search-input" placeholder="Buscar conta...">
+                </div>
+                <div class="actions">
+                    <button id="add-account" class="btn-primary">
+                        <i class="fas fa-plus"></i> Nova Conta
+                    </button>
+                    <button id="export-accounts" class="btn-secondary">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabela de contas -->
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID da Conta</th>
+                            <th>Nome</th>
+                            <th>Status</th>
+                            <th>Gasto Total</th>
+                            <th>Limite</th>
+                            <th>Última Atualização</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="accounts-table-body">
+                        <!-- Conteúdo dinâmico será inserido aqui -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal de detalhes da conta -->
+            <div id="account-details-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Detalhes da Conta</h2>
+                    <div class="modal-body">
+                        <div class="details-section">
+                            <h3>Informações Básicas</h3>
+                            <p><strong>ID da Conta:</strong> <span id="detail-account-id"></span></p>
+                            <p><strong>Nome:</strong> <span id="detail-name"></span></p>
+                            <p><strong>Status:</strong> <span id="detail-status"></span></p>
+                            <p><strong>Data de Criação:</strong> <span id="detail-created-date"></span></p>
+                        </div>
+                        <div class="details-section">
+                            <h3>Métricas</h3>
+                            <p><strong>Gasto Total:</strong> <span id="detail-total-spend"></span></p>
+                            <p><strong>Limite de Gasto:</strong> <span id="detail-spend-limit"></span></p>
+                            <p><strong>Campanhas Ativas:</strong> <span id="detail-active-campaigns"></span></p>
+                            <p><strong>Performance Média:</strong> <span id="detail-avg-performance"></span></p>
+                        </div>
+                        <div class="details-section">
+                            <h3>Usuários</h3>
+                            <div id="detail-users-list">
+                                <!-- Lista de usuários será inserida aqui -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal de edição de conta -->
+            <div id="edit-account-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Editar Conta</h2>
+                    <form id="edit-account-form">
+                        <div class="form-group">
+                            <label for="edit-name">Nome da Conta</label>
+                            <input type="text" id="edit-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-status">Status</label>
+                            <select id="edit-status" required>
+                                <option value="active">Ativa</option>
+                                <option value="pending">Pendente</option>
+                                <option value="blocked">Bloqueada</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-spend-limit">Limite de Gasto</label>
+                            <input type="number" id="edit-spend-limit" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Salvar</button>
+                            <button type="button" class="btn-secondary" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal de confirmação de exclusão -->
+            <div id="delete-confirm-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Confirmar Exclusão</h2>
+                    <p>Tem certeza que deseja excluir esta conta de anúncio? Esta ação não pode ser desfeita.</p>
+                    <div class="modal-actions">
+                        <button id="confirm-delete" class="btn-danger">Excluir</button>
+                        <button class="btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mensagens de alerta -->
+            <div id="alert-container"></div>
+
+            <!-- Indicador de carregamento -->
+            <div id="loading-spinner" class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script type="module" src="js/bm-facebook-api.js"></script>
+    <script type="module" src="js/bm-sidebar.js"></script>
+    <script type="module" src="js/contas-ads.js"></script>
+</body>
+</html> 

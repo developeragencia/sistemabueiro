@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard para gerenciamento centralizado de Business Managers do Facebook">
+    <meta name="theme-color" content="#1877f2">
+    <meta property="og:title" content="BM Multi Acessos Facebook - Dashboard">
+    <meta property="og:description" content="Gerencie seus Business Managers do Facebook de forma centralizada">
+    <meta property="og:type" content="website">
+    <title>BM Multi Acessos Facebook - Dashboard</title>
+    <link rel="stylesheet" href="css/bm-facebook.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Preconnect para recursos externos -->
+    <link rel="preconnect" href="https://graph.facebook.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+</head>
+<body>
+    <!-- Menu Lateral -->
+    <nav class="bm-sidebar">
+        <div class="sidebar-header">
+            <img src="img/logo.png" alt="Logo BM Multi Acessos" class="sidebar-logo">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li class="menu-item active">
+                <a href="bm-facebook.html">
+                    <i class="fas fa-building"></i>
+                    <span>Business Managers</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="contas-ads.html">
+                    <i class="fas fa-ad"></i>
+                    <span>Contas de Anúncio</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="usuarios.html">
+                    <i class="fas fa-users"></i>
+                    <span>Usuários</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="pixel.html">
+                    <i class="fas fa-code"></i>
+                    <span>Pixels</span>
+                </a>
+            </li>
+            <li class="menu-divider"></li>
+            <li class="menu-item">
+                <a href="relatorios.html">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Relatórios</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="configuracoes.html">
+                    <i class="fas fa-cog"></i>
+                    <span>Configurações</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <img src="img/user-avatar.png" alt="Avatar do usuário" class="user-avatar">
+                <div class="user-details">
+                    <span class="user-name">Nome do Usuário</span>
+                    <span class="user-role">Administrador</span>
+                </div>
+            </div>
+            <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sair</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="bm-main">
+        <div class="bm-container">
+            <!-- Header -->
+            <header class="bm-header">
+                <div class="header-left">
+                    <h1 class="bm-title">BM Multi Acessos Facebook</h1>
+                    <p class="bm-subtitle">Gerenciamento centralizado de Business Managers</p>
+                </div>
+                <div class="header-right">
+                    <button class="bm-btn" onclick="exportToCSV()">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
+                    <button class="bm-btn bm-btn-primary" onclick="openAddBMModal()">
+                        <i class="fas fa-plus"></i> Adicionar BM
+                    </button>
+                </div>
+            </header>
+
+            <!-- Cards informativos -->
+            <div class="bm-stats-grid">
+                <div class="bm-stats-card">
+                    <div class="stat-title">Total de BMs</div>
+                    <div class="stat-value" id="totalBMs">0</div>
+                </div>
+                <div class="bm-stats-card">
+                    <div class="stat-title">BMs Ativos</div>
+                    <div class="stat-value" id="activeBMs">0</div>
+                </div>
+                <div class="bm-stats-card">
+                    <div class="stat-title">BMs Pendentes</div>
+                    <div class="stat-value" id="pendingBMs">0</div>
+                </div>
+                <div class="bm-stats-card">
+                    <div class="stat-title">BMs Bloqueados</div>
+                    <div class="stat-value" id="blockedBMs">0</div>
+                </div>
+            </div>
+
+            <!-- Filtros -->
+            <div class="bm-filters">
+                <input type="text" class="bm-search" placeholder="Buscar BM por nome ou ID..." id="searchBM">
+                <div class="filter-group">
+                    <select class="bm-select" id="statusFilter">
+                        <option value="">Todos os status</option>
+                        <option value="active">Ativos</option>
+                        <option value="pending">Pendentes</option>
+                        <option value="blocked">Bloqueados</option>
+                    </select>
+                    <select class="bm-select" id="sortBy">
+                        <option value="name">Ordenar por Nome</option>
+                        <option value="id">Ordenar por ID</option>
+                        <option value="status">Ordenar por Status</option>
+                        <option value="lastUpdate">Ordenar por Atualização</option>
+                    </select>
+                    <button class="bm-btn bm-btn-primary" onclick="applyFilters()">
+                        <i class="fas fa-filter"></i> Aplicar Filtros
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabela de BMs -->
+            <div class="bm-table-wrapper">
+                <table class="bm-table">
+                    <thead>
+                        <tr>
+                            <th>ID do BM</th>
+                            <th>Nome</th>
+                            <th>Status</th>
+                            <th>Contas</th>
+                            <th>Último Acesso</th>
+                            <th>Última Atualização</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bmTableBody">
+                        <!-- Dados serão inseridos via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal Adicionar/Editar BM -->
+            <div class="bm-modal" id="bmModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="modalTitle">Adicionar BM</h2>
+                        <button class="modal-close" onclick="closeModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="bmForm">
+                            <div class="form-group">
+                                <label class="form-label" for="bmId">ID do Business Manager</label>
+                                <input type="text" id="bmId" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="bmName">Nome do BM</label>
+                                <input type="text" id="bmName" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="bmStatus">Status</label>
+                                <select id="bmStatus" class="form-input" required>
+                                    <option value="active">Ativo</option>
+                                    <option value="pending">Pendente</option>
+                                    <option value="blocked">Bloqueado</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="bm-btn" onclick="closeModal()">Cancelar</button>
+                        <button class="bm-btn bm-btn-primary" onclick="saveBM()">Salvar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Container de Alertas -->
+            <div id="alertContainer" class="alert-container"></div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script type="module" src="js/bm-facebook-api.js"></script>
+    <script type="module" src="js/bm-facebook.js"></script>
+    <script type="module" src="js/bm-sidebar.js"></script>
+    
+    <!-- Noscript fallback -->
+    <noscript>
+        <div class="noscript-message">
+            Este aplicativo requer JavaScript para funcionar. Por favor, habilite JavaScript no seu navegador.
+        </div>
+    </noscript>
+</body>
+</html> 

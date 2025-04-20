@@ -1,0 +1,223 @@
+/* Estilos específicos para página de Campanhas */
+
+/* Variáveis específicas */
+:root {
+    --objective-awareness: #1890ff;
+    --objective-traffic: #52c41a;
+    --objective-engagement: #722ed1;
+    --objective-conversions: #fa8c16;
+    --objective-sales: #eb2f96;
+}
+
+/* Grid de métricas */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.metric-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.metric-value {
+    display: block;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.metric-label {
+    font-size: 14px;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* Badges de objetivo */
+.objective-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.objective-badge::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.objective-AWARENESS {
+    background: rgba(24, 144, 255, 0.1);
+    color: var(--objective-awareness);
+}
+
+.objective-AWARENESS::before {
+    background: var(--objective-awareness);
+}
+
+.objective-TRAFFIC {
+    background: rgba(82, 196, 26, 0.1);
+    color: var(--objective-traffic);
+}
+
+.objective-TRAFFIC::before {
+    background: var(--objective-traffic);
+}
+
+.objective-ENGAGEMENT {
+    background: rgba(114, 46, 209, 0.1);
+    color: var(--objective-engagement);
+}
+
+.objective-ENGAGEMENT::before {
+    background: var(--objective-engagement);
+}
+
+.objective-CONVERSIONS {
+    background: rgba(250, 140, 22, 0.1);
+    color: var(--objective-conversions);
+}
+
+.objective-CONVERSIONS::before {
+    background: var(--objective-conversions);
+}
+
+.objective-SALES {
+    background: rgba(235, 47, 150, 0.1);
+    color: var(--objective-sales);
+}
+
+.objective-SALES::before {
+    background: var(--objective-sales);
+}
+
+/* Indicador de performance */
+.performance-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.performance-bar {
+    width: 60px;
+    height: 4px;
+    background: #f0f0f0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.performance-bar-fill {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.performance-high .performance-bar-fill {
+    background: var(--status-active);
+    width: 90%;
+}
+
+.performance-medium .performance-bar-fill {
+    background: var(--status-pending);
+    width: 60%;
+}
+
+.performance-low .performance-bar-fill {
+    background: var(--status-disabled);
+    width: 30%;
+}
+
+/* Lista de conjuntos de anúncios */
+.adsets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.adset-item {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.adset-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.adset-name {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.adset-status {
+    font-size: 12px;
+}
+
+.adset-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+}
+
+.adset-metric {
+    text-align: center;
+}
+
+.adset-metric-value {
+    display: block;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.adset-metric-label {
+    font-size: 12px;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+/* Gráfico de performance */
+.performance-chart-container {
+    margin-top: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .adset-metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .performance-indicator {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .performance-bar {
+        width: 100%;
+    }
+} 
