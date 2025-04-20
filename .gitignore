@@ -29,13 +29,16 @@ Thumbs.db
 .cache/
 .temp/
 
+# Arquivos temporários
+*.tmp
+*.temp
+.cache/
+
+# Arquivos de build do Netlify
+.netlify/
+
 # Arquivos de IDE
 .idea/
 .vscode/
 *.sublime-project
-*.sublime-workspace
-
-# Arquivos temporários
-*.tmp
-*.temp
-.cache/ 
+*.sublime-workspace 
