@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Dashboard de Gerenciamento de Anúncios Facebook",
   "scripts": {
-    "build": "npm run build:css && npm run build:js && npm run build:copy",
+    "build": "NODE_ENV=development npm install && npm run build:all",
+    "build:all": "npm run build:css && npm run build:js && npm run build:copy",
     "build:css": "node-sass dashboard/admin/css/style.scss dist/css/style.css --output-style compressed && node-sass dashboard/admin/css/adsets.css dist/css/adsets.css --output-style compressed",
     "build:js": "webpack --mode production",
     "build:copy": "copyfiles -u 1 \"dashboard/admin/**/*.{html,css,js,png,jpg,svg}\" dist/",
@@ -19,11 +20,9 @@
     "chart.js": "^4.3.0",
     "jquery": "^3.6.0",
     "moment": "^2.29.4",
-    "select2": "^4.1.0",
+    "select2": "4.0.13",
     "sweetalert2": "^11.7.0",
-    "serve": "^14.2.0"
-  },
-  "devDependencies": {
+    "serve": "^14.2.0",
     "node-sass": "^9.0.0",
     "copyfiles": "^2.4.1",
     "rimraf": "^5.0.0",
@@ -35,6 +34,8 @@
     "copy-webpack-plugin": "^11.0.0",
     "html-webpack-plugin": "^5.5.1",
     "terser-webpack-plugin": "^5.3.6"
+  },
+  "devDependencies": {
   },
   "engines": {
     "node": ">=18.0.0",
