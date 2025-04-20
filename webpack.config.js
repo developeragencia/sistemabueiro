@@ -10,10 +10,10 @@ module.exports = {
     adsets: './dashboard/admin/js/AdSetsManager.js'
   },
   output: {
-    filename: '[name].[contenthash].bundle.js',
-    path: path.resolve(__dirname, 'dist/js'),
+    filename: 'js/[name].[contenthash].js',
+    path: path.resolve(__dirname, 'dist'),
     clean: true,
-    publicPath: '/js/'
+    publicPath: '/'
   },
   optimization: {
     minimize: true,
@@ -51,14 +51,14 @@ module.exports = {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'images/[name][ext][query]'
+          filename: 'images/[name][ext]'
         }
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'fonts/[name][ext][query]'
+          filename: 'fonts/[name][ext]'
         }
       }
     ]
@@ -68,16 +68,20 @@ module.exports = {
       patterns: [
         {
           from: 'dashboard/admin',
-          to: '../',
+          to: '.',
           globOptions: {
-            ignore: ['**/js/**', '**/css/*.scss']
+            ignore: [
+              '**/js/**',
+              '**/*.scss',
+              '**/node_modules/**'
+            ]
           }
         }
       ]
     }),
     new HtmlWebpackPlugin({
       template: 'dashboard/admin/index.html',
-      filename: '../index.html',
+      filename: 'index.html',
       minify: {
         collapseWhitespace: true,
         removeComments: true,
@@ -89,8 +93,6 @@ module.exports = {
     })
   ],
   performance: {
-    hints: 'warning',
-    maxEntrypointSize: 512000,
-    maxAssetSize: 512000
+    hints: false
   }
 }; 

@@ -4,17 +4,15 @@
   "description": "Dashboard de Gerenciamento de Anúncios Facebook",
   "scripts": {
     "build": "npm run build:css && npm run build:js && npm run build:copy",
-    "build:css": "sass dashboard/admin/css/style.scss dashboard/admin/css/style.css --style compressed",
+    "build:css": "node-sass dashboard/admin/css/style.scss dist/css/style.css --output-style compressed && node-sass dashboard/admin/css/adsets.css dist/css/adsets.css --output-style compressed",
     "build:js": "webpack --mode production",
-    "build:copy": "cp -r dashboard/admin/* dist/ && rm -rf dist/js",
+    "build:copy": "copyfiles -u 1 \"dashboard/admin/**/*.{html,css,js,png,jpg,svg}\" dist/",
     "dev": "npm run dev:css && npm run dev:js",
-    "dev:css": "sass --watch dashboard/admin/css/style.scss dashboard/admin/css/style.css",
+    "dev:css": "node-sass --watch dashboard/admin/css/style.scss dist/css/style.css",
     "dev:js": "webpack --mode development --watch",
     "start": "serve dist",
-    "clean": "rm -rf dist && rm -rf node_modules",
-    "prebuild": "npm run clean",
-    "postbuild": "npm run lint",
-    "lint": "eslint dashboard/admin/js/**/*.js"
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean"
   },
   "dependencies": {
     "bootstrap": "^5.3.0",
@@ -26,15 +24,14 @@
     "serve": "^14.2.0"
   },
   "devDependencies": {
-    "sass": "^1.62.0",
+    "node-sass": "^9.0.0",
+    "copyfiles": "^2.4.1",
+    "rimraf": "^5.0.0",
     "webpack": "^5.76.0",
     "webpack-cli": "^5.0.1",
     "css-loader": "^6.7.3",
     "style-loader": "^3.3.2",
     "file-loader": "^6.2.0",
-    "eslint": "^8.40.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.27.5",
     "copy-webpack-plugin": "^11.0.0",
     "html-webpack-plugin": "^5.5.1",
     "terser-webpack-plugin": "^5.3.6"
