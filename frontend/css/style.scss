@@ -1,0 +1,185 @@
+@use "sass:color";
+
+// Variáveis
+$primary-color: #1877f2;
+$secondary-color: #42b72a;
+$danger-color: #dc3545;
+$success-color: #28a745;
+$warning-color: #ffc107;
+$info-color: #17a2b8;
+$light-color: #f8f9fa;
+$dark-color: #343a40;
+
+// Mixins
+@mixin button-variant($color) {
+  background-color: $color;
+  border-color: $color;
+  color: white;
+
+  &:hover {
+    background-color: color.adjust($color, $lightness: -10%);
+    border-color: color.adjust($color, $lightness: -10%);
+  }
+}
+
+// Estilos globais
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: #f0f2f5;
+}
+
+// Container
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+// Cards
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+// Botões
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &-primary {
+    @include button-variant($primary-color);
+  }
+
+  &-success {
+    @include button-variant($success-color);
+  }
+
+  &-danger {
+    @include button-variant($danger-color);
+  }
+
+  &-warning {
+    @include button-variant($warning-color);
+  }
+
+  &-info {
+    @include button-variant($info-color);
+  }
+}
+
+// Formulários
+.form-group {
+  margin-bottom: 1rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+    }
+  }
+}
+
+// Alertas
+.alert {
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+
+  &-success {
+    background-color: rgba($success-color, 0.1);
+    border: 1px solid $success-color;
+    color: color.adjust($success-color, $lightness: -20%);
+  }
+
+  &-danger {
+    background-color: rgba($danger-color, 0.1);
+    border: 1px solid $danger-color;
+    color: color.adjust($danger-color, $lightness: -20%);
+  }
+
+  &-warning {
+    background-color: rgba($warning-color, 0.1);
+    border: 1px solid $warning-color;
+    color: color.adjust($warning-color, $lightness: -20%);
+  }
+
+  &-info {
+    background-color: rgba($info-color, 0.1);
+    border: 1px solid $info-color;
+    color: color.adjust($info-color, $lightness: -20%);
+  }
+}
+
+// Tabelas
+.table {
+    thead th {
+        border-top: none;
+        font-weight: 600;
+        color: $dark-color;
+    }
+    
+    tbody tr {
+        &:hover {
+            background-color: rgba($primary-color, 0.05);
+        }
+    }
+}
+
+// Badges
+.badge {
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+    
+    &-success {
+        background-color: $success-color;
+    }
+    
+    &-warning {
+        background-color: $warning-color;
+        color: $dark-color;
+    }
+    
+    &-danger {
+        background-color: $danger-color;
+    }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 15px;
+    }
+    
+    .table-responsive {
+        margin-bottom: 15px;
+    }
+} 
