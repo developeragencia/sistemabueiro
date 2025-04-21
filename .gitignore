@@ -1,12 +1,39 @@
-# Dependências
-node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment variables
+.env
 
 # Arquivos de build
 dist/
 build/
+.next/
+out/
 
 # Arquivos de ambiente
 .env
@@ -24,10 +51,14 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+*.sublime-project
+*.sublime-workspace
 
 # Arquivos de cache
 .cache/
 .temp/
+.eslintcache
+.stylelintcache
 
 # Arquivos temporários
 *.tmp
@@ -36,9 +67,15 @@ Thumbs.db
 
 # Arquivos de build do Netlify
 .netlify/
+.netlify.toml
 
-# Arquivos de IDE
-.idea/
-.vscode/
-*.sublime-project
-*.sublime-workspace 
+# Logs
+logs/
+*.log
+
+# Testes
+coverage/
+
+# Arquivos de configuração local
+config.local.js
+config.local.json 

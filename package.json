@@ -1,48 +1,52 @@
 {
   "name": "bueiro2029",
   "version": "1.0.0",
-  "description": "Dashboard administrativo para gerenciamento de anúncios",
-  "main": "index.js",
+  "description": "API para gerenciamento de bueiros",
+  "main": "src/index.js",
   "scripts": {
-    "start": "webpack serve --mode development",
-    "build": "webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
+  "keywords": [
+    "iot",
+    "smart-city",
+    "monitoring",
+    "flood-prevention"
+  ],
+  "author": "BUEIRO2029 Team",
+  "license": "MIT",
   "dependencies": {
-    "bootstrap": "^5.3.0",
-    "chart.js": "^4.3.0",
-    "jquery": "^3.6.4",
-    "select2": "^4.0.13",
-    "sweetalert2": "^11.7.3",
-    "webpack": "^5.82.1",
-    "webpack-cli": "^5.1.1",
-    "html-webpack-plugin": "^5.5.1",
-    "mini-css-extract-plugin": "^2.7.5",
-    "clean-webpack-plugin": "^4.0.0",
-    "css-minimizer-webpack-plugin": "^4.2.2",
-    "terser-webpack-plugin": "^5.3.6",
-    "@babel/core": "^7.21.8",
-    "@babel/plugin-transform-runtime": "^7.21.8",
-    "@babel/preset-env": "^7.21.5",
-    "@babel/runtime": "^7.21.8",
-    "babel-loader": "^9.1.2",
-    "core-js": "^3.30.1",
-    "css-loader": "^6.7.3",
-    "sass": "^1.62.1",
-    "sass-loader": "^13.2.2",
-    "style-loader": "^3.3.2"
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "webpack-dev-server": "^4.15.0"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   },
-  "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "browserslist": [
-    "> 0.5%",
-    "last 2 versions",
-    "not dead",
-    "not IE 11"
-  ]
-} 
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
