@@ -1,94 +1,65 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Usuario } from '../types';
-import api from '../services/api';
+import React, { createContext, useContext, useState } from 'react';
+
+interface Usuario {
+  id: number;
+  nome: string;
+  email: string;
+  tipo: 'admin' | 'tecnico' | 'operador';
+  ativo: boolean;
+}
 
 interface AuthContextData {
   usuario: Usuario | null;
-  loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => void;
+  isAuthenticated: boolean;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [usuario, setUsuario] = useState<Usuario | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      api.defaults.headers.Authorization = `Bearer ${token}`;
-      // TODO: Implementar chamada à API para buscar dados do usuário
-      // const fetchUsuario = async () => {
-      //   try {
-      //     const response = await api.get('/usuarios/me');
-      //     setUsuario(response.data);
-      //   } catch (error) {
-      //     localStorage.removeItem('token');
-      //   } finally {
-      //     setLoading(false);
-      //   }
-      // };
-      // fetchUsuario();
-
-      // Dados mockados para demonstração
-      setTimeout(() => {
-        setUsuario({
-          id: 1,
-          nome: 'Administrador',
-          email: 'admin@bueiro2029.com',
-          tipo: 'admin',
-          ativo: true,
-        });
-        setLoading(false);
-      }, 1000);
-    } else {
-      setLoading(false);
-    }
-  }, []);
+  const isAuthenticated = !!usuario;
 
   const signIn = async (email: string, password: string) => {
     try {
-      // TODO: Implementar chamada à API
-      // const response = await api.post('/auth/login', { email, password });
-      // const { token, usuario } = response.data;
-      // localStorage.setItem('token', token);
-      // api.defaults.headers.Authorization = `Bearer ${token}`;
-      // setUsuario(usuario);
-
-      // Simulação de sucesso
-      const mockUsuario = {
+      // Simulação de autenticação - será substituída pela chamada real à API
+      const mockUsuario: Usuario = {
         id: 1,
-        nome: 'Administrador',
-        email: 'admin@bueiro2029.com',
+        nome: 'Usuário Teste',
+        email: email,
         tipo: 'admin',
-        ativo: true,
+        ativo: true
       };
-      localStorage.setItem('token', 'mock-token');
-      api.defaults.headers.Authorization = 'Bearer mock-token';
+
+      localStorage.setItem('@Bueiro:token', 'mock-token');
+      localStorage.setItem('@Bueiro:user', JSON.stringify(mockUsuario));
+      
       setUsuario(mockUsuario);
     } catch (error) {
-      throw new Error('Credenciais inválidas');
+      console.error('Erro ao fazer login:', error);
+      throw error;
     }
   };
 
   const signOut = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('@Bueiro:token');
+    localStorage.removeItem('@Bueiro:user');
     setUsuario(null);
   };
 
   return (
-    <AuthContext.Provider value={{ usuario, loading, signIn, signOut }}>
+    <AuthContext.Provider value={{ usuario, signIn, signOut, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
-export const useAuth = () => {
+export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error('useAuth deve ser usado dentro de um AuthProvider');
   }
   return context;
-}; 
+} 
